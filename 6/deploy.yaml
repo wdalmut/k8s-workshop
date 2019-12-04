@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ghost
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost-controller
+          image: ghost
+          ports:
+            - containerPort: 2368
+
