@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "app-ingress"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  labels:
+    app: app-ingress
+spec:
+  rules:
+    - host: app1.walterdalmut.com
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: "service-app1"
+              servicePort: 2368
+    - host: app2.walterdalmut.com
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: "service-app2"
+              servicePort: 80
+    - host: app3.walterdalmut.com
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: "service-api"
+              servicePort: 4000

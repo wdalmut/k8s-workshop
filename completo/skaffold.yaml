@@ -1,0 +1,19 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: events
+build:
+  artifacts:
+  - image: 475714516889.dkr.ecr.eu-west-1.amazonaws.com/myapp
+    context: myapp
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kustomize:
+    path: k8s/overlays/development
+
+profiles:
+  - name: production
+    deploy:
+      kustomize:
+        path: k8s/overlays/production
